@@ -1,11 +1,11 @@
 # beach-cleaning-robot-design
 
-**Beach-Cleaning Robot Design (Path Optimization vs Current**
+**Beach-Cleaning Robot Design (Path Optimization vs Current)**
 
 [![Claude Skill](https://img.shields.io/badge/Claude-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![Version](https://img.shields.io/badge/version-2.0.0-brightgreen)]())
+[![Version](https://img.shields.io/badge/version-2.0.0-brightgreen)]()
 
 A production-grade Claude Code harness for **Beach-Cleaning Robotics & Coastal Engineering** — gathers real-time authoritative data, applies recognized domain methods, integrates academic research, and delivers evidence-backed, risk-disclosed outputs with graceful degradation and structured logging.
 
