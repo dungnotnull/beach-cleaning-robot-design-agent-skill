@@ -1,6 +1,6 @@
-# beach-cleaning-robot-design v2.0.0
+# beach-cleaning-robot-design
 
-**Beach-Cleaning Robot Design (Path Optimization vs Current)**
+**Beach-Cleaning Robot Design (Path Optimization vs Current**
 
 [![Claude Skill](https://img.shields.io/badge/Claude-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
