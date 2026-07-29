@@ -1,0 +1,216 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "final-report-output.schema.json",
+  "title": "Final Report Output Schema",
+  "description": "Output schema for the final beach-cleaning robot design report",
+  "type": "object",
+  "properties": {
+    "report_metadata": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Report creation date"
+        },
+        "analyst": {
+          "type": "string",
+          "description": "Skill name and version"
+        },
+        "language": {
+          "type": "string",
+          "enum": ["vi", "en"],
+          "description": "Report language"
+        },
+        "version": {
+          "type": "string",
+          "description": "Skill version"
+        },
+        "execution_id": {
+          "type": "string",
+          "description": "Unique execution identifier"
+        },
+        "duration_ms": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Execution duration in milliseconds"
+        }
+      },
+      "required": ["date", "analyst", "language", "version"]
+    },
+    "executive_summary": {
+      "type": "string",
+      "minLength": 50,
+      "description": "2-3 sentence summary of the analysis"
+    },
+    "inputs_scope": {
+      "type": "string",
+      "description": "Description of inputs and analysis scope"
+    },
+    "evidence_collected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {"type": "string"},
+          "data_point": {"type": "string"},
+          "tier": {"type": "string", "enum": ["1", "2", "3", "4"]},
+          "timestamp": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "analysis_scorecard": {
+      "type": "object",
+      "properties": {
+        "locomotion_collection": {
+          "type": "object",
+          "properties": {
+            "selected": {"type": "string"},
+            "score": {"type": "number", "minimum": 0, "maximum": 100},
+            "notes": {"type": "string"}
+          }
+        },
+        "sensing_path_planning": {
+          "type": "object",
+          "properties": {
+            "selected": {"type": "string"},
+            "score": {"type": "number", "minimum": 0, "maximum": 100},
+            "notes": {"type": "string"}
+          }
+        },
+        "battery_autonomy": {
+          "type": "object",
+          "properties": {
+            "capacity_wh": {"type": "number"},
+            "autonomy_hours": {"type": "number"},
+            "score": {"type": "number", "minimum": 0, "maximum": 100},
+            "notes": {"type": "string"}
+          }
+        },
+        "reliability": {
+          "type": "object",
+          "properties": {
+            "ip_rating": {"type": "string"},
+            "score": {"type": "number", "minimum": 0, "maximum": 100},
+            "notes": {"type": "string"}
+          }
+        }
+      }
+    },
+    "action_plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {"type": "string"},
+          "priority": {"type": "string", "enum": ["high", "medium", "low"]},
+          "category": {"type": "string"},
+          "details": {"type": "string"}
+        },
+        "required": ["action", "priority"]
+      }
+    },
+    "academic_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "authors": {"type": "array", "items": {"type": "string"}},
+          "year": {"type": "number"},
+          "venue": {"type": "string"},
+          "doi": {"type": "string"},
+          "tier": {"type": "string", "enum": ["1", "2", "3", "4"]},
+          "relevance": {"type": "string"}
+        }
+      }
+    },
+    "disclosure": {
+      "type": "string",
+      "minLength": 100,
+      "description": "Mandatory disclosure of limitations and risks"
+    },
+    "recommendation": {
+      "type": "object",
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": ["Production-Ready Design", "Conditional (autonomy)", "Harsh-Environment Risk", "Inconclusive"],
+          "description": "Final verdict category"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Confidence level in the verdict"
+        },
+        "best_scenario": {
+          "type": "object",
+          "properties": {
+            "conditions": {"type": "string"},
+            "coverage_sqm_per_hour": {"type": "number"},
+            "collection_efficiency_percent": {"type": "number"}
+          }
+        },
+        "base_scenario": {
+          "type": "object",
+          "properties": {
+            "conditions": {"type": "string"},
+            "coverage_sqm_per_hour": {"type": "number"},
+            "collection_efficiency_percent": {"type": "number"}
+          }
+        },
+        "worst_scenario": {
+          "type": "object",
+          "properties": {
+            "conditions": {"type": "string"},
+            "coverage_sqm_per_hour": {"type": "number"},
+            "collection_efficiency_percent": {"type": "number"}
+          }
+        },
+        "key_risks": {
+          "type": "array",
+          "items": {"type": "string"}}
+        },
+        "evidence_chain": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "remediation": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "required": ["verdict", "confidence"]
+    },
+    "quality_gates_passed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["U1", "U2", "U3", "U4", "U5", "U6", "G1", "G2", "G3", "G4"]
+      }
+    },
+    "quality_gates_failed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "gate": {"type": "string"},
+          "reason": {"type": "string"},
+          "limitation_emitted": {"type": "boolean"}
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "description": {"type": "string"},
+          "impact": {"type": "string"}
+        }
+      }
+    }
+  },
+  "required": ["report_metadata", "executive_summary", "disclosure", "recommendation"]
+}

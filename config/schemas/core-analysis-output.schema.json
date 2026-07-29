@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "core-analysis-output.schema.json",
+  "title": "Core Analysis Output Schema",
+  "description": "Output schema for sub-core-analysis skill",
+  "type": "object",
+  "properties": {
+    "locomotion_collection": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["wheels", "tracks", "hybrid", "legged"],
+          "description": "Locomotion type selected"
+        },
+        "collection_mechanism": {
+          "type": "string",
+          "enum": ["sieve", "gripper", "conveyor", "suction", "hybrid"],
+          "description": "Collection mechanism"
+        },
+        "specification": {
+          "type": "object",
+          "properties": {
+            "wheel_track_spec": {"type": "string"},
+            "clearance_mm": {"type": "number"},
+            "slope_capability_degrees": {"type": "number"},
+            "sieve_mesh_mm": {"type": "number"}
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Reasoning behind the choice"
+        }
+      },
+      "required": ["type", "collection_mechanism", "rationale"]
+    },
+    "sensing_path_planning": {
+      "type": "object",
+      "properties": {
+        "sensors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["camera", "lidar", "radar", "ultrasonic", "inertial"]
+              },
+              "specification": {"type": "string"},
+              "purpose": {"type": "string"}
+            },
+            "required": ["type", "purpose"]
+          }
+        },
+        "algorithm": {
+          "type": "string",
+          "enum": ["boustrophedon", "spiral", "random", "adaptive", "tide_following"],
+          "description": "Path planning algorithm"
+        },
+        "tide_aware": {
+          "type": "boolean",
+          "description": "Whether planning accounts for tides/currents"
+        },
+        "coverage_efficiency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Expected coverage efficiency percentage"
+        }
+      },
+      "required": ["sensors", "algorithm", "tide_aware"]
+    },
+    "battery_autonomy": {
+      "type": "object",
+      "properties": {
+        "capacity_wh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Battery capacity in watt-hours"
+        },
+        "autonomy_hours": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Estimated autonomy in hours"
+        },
+        "solar_assist": {
+          "type": "boolean",
+          "description": "Solar panel assistance included"
+        },
+        "solar_capacity_w": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Solar panel capacity in watts"
+        },
+        "consumption_breakdown": {
+          "type": "object",
+          "properties": {
+            "locomotion_percent": {"type": "number"},
+            "sensing_percent": {"type": "number"},
+            "collection_percent": {"type": "number"},
+            "computing_percent": {"type": "number"}
+          }
+        }
+      },
+      "required": ["capacity_wh", "autonomy_hours", "solar_assist"]
+    },
+    "reliability": {
+      "type": "object",
+      "properties": {
+        "ip_rating": {
+          "type": "string",
+          "pattern": "^IP[0-9X][0-9X]$",
+          "description": "IP rating for ingress protection"
+        },
+        "corrosion_protection": {
+          "type": "boolean",
+          "description": "Corrosion protection mechanisms in place"
+        },
+        "water_ingress_protection": {
+          "type": "boolean",
+          "description": "Water ingress protection"
+        },
+        "sand_abrasion_resistance": {
+          "type": "boolean",
+          "description": "Sand abrasion resistance features"
+        },
+        "self_righting": {
+          "type": "boolean",
+          "description": "Self-righting capability if overturned"
+        },
+        "maintenance_interval_hours": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Recommended maintenance interval"
+        },
+        "mtbf_hours": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Mean time between failures"
+        }
+      },
+      "required": ["ip_rating", "corrosion_protection", "water_ingress_protection", "sand_abrasion_resistance"]
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": ["best", "base", "worst"],
+            "description": "Scenario name"
+          },
+          "description": {"type": "string"},
+          "conditions": {
+            "type": "object",
+            "properties": {
+              "beach_conditions": {"type": "string"},
+              "debris_load": {"type": "string"},
+              "weather": {"type": "string"}
+            }
+          },
+          "coverage_rate_sqm_per_hour": {
+            "type": "number",
+            "minimum": 0
+          },
+          "collection_efficiency_percent": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "energy_consumption_wh": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["name", "coverage_rate_sqm_per_hour", "collection_efficiency_percent"]
+      },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  },
+  "required": ["locomotion_collection", "sensing_path_planning", "battery_autonomy", "reliability", "scenarios"]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "requirements-input.schema.json",
+  "title": "Requirements Input Schema",
+  "description": "Input schema for sub-gather-requirements skill",
+  "type": "object",
+  "properties": {
+    "object": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The primary object or entity to analyze"
+    },
+    "scope": {
+      "type": "string",
+      "description": "The scope or boundaries of the analysis"
+    },
+    "timeframe": {
+      "type": "string",
+      "description": "Timeframe for the analysis (e.g., 'current', '1-year', '5-year')"
+    },
+    "available_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of available inputs or data sources"
+    },
+    "target_audience": {
+      "type": "string",
+      "description": "Target audience for the analysis output"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["vi", "en", "other"],
+      "description": "Preferred output language"
+    },
+    "analysis_type": {
+      "type": "string",
+      "enum": ["combined", "locomotion", "sensing", "autonomy", "reliability"],
+      "description": "Type of analysis to perform"
+    }
+  },
+  "required": ["object"],
+  "additionalProperties": false
+}
